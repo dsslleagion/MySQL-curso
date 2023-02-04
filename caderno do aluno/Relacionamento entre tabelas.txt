@@ -1,0 +1,28 @@
+relacionamento de tabelas
+
+regras de normalização do banco de dados
+
+Aplicando formas normais
+
+Existem outras biblografias que defendem apenas 3FN. outras defendem 5FN
+
+-segundo a 1FN, todas as ocorrências de um registro devem conter os mesmos numeros de campos.
+
+
+- os "atributos Compostos" devem ser eliminados, criando novas colunas.
+
+
+2ªForma Normal - 2FN
+
+podemos dizer que uma tabela está na 2FN se ela estiver na 1FN e todos os atributos não chave forem totalmente
+dependentes da chave primaria(dependente de toda a chave e não apenas de parte dela - em caso de chaves compostas)
+
+Regras de normalização 3ºForma
+
+- Sabemos que uma tabela está na 3Fn se ela estiver na 2FN e se nenhuma coluna não-chave depender de outra coluna não
+chave.
+- Basicamente, o objetivo é eliminar os campos que podem ser obtidos pela equação(calculo matematico ou logico) de outros
+campos da mesma tabela
+
+- a chave primaria da nova entidade será o atributo do qual os atributos removidos são funcionalmente dependentes.
+

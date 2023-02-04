@@ -1,0 +1,33 @@
+Modelo E-R (Entidade de relacionamento)
+
+- modelo baseado no mundo real;
+- temos a chamada "Entidade" = tabela do banco
+
+
+entidade = tabela 
+a "entidade" tera "atributos";
+atributos são as caracteristicas que descrevem as linhas, registros ou "tuplas".
+- atributos = campos;
+- em modelagem de dados o relacionamento é o tipo de ocorrência existente entre entidades.
+usamos o losango para representa´lo:
+- 1 para 1;
+ -Exemplo: Marido CASA COM Esposa
+- 1 para N;
+ -Exemplo :Cliente FAZ Pedidos
+- N para N;
+
+
+
+
+
+
+
+
+
+
+
+ - exemplo: Verdedor ATENDE Cliente
+
+
+
+

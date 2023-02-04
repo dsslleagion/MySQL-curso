@@ -1,0 +1,135 @@
+/*create database meu_banco_de_dados;
+
+use meu_banco_de_dados;
+create table cliente(
+id int,
+nome varchar(30), 
+renda decimal(8, 2),
+cpf varchar(14), -- 47023157816
+endereco_rua varchar(40),
+encereco_num varchar(6),
+endereco_compl varchar(20),
+endereco_bairro varchar(30),
+endereco_cidade varchar(30),
+endereco_uf char(2),
+cep char(8)
+);  
+
+-- Comando drop
+drop table clientes;
+drop database meu_banco_de_dados;
+
+
+create database exemplo;
+use exemplo;
+
+create table alunos(
+ aluno_id int,
+ aluno_nome varchar(40) not null,
+ aluno_email varchar(40) not null,
+ aluno_cpf int (11) zerofill,
+ aluno_rg varchar(15),
+ aluno_sexo enum("M", "F"),
+ aluno_status bit
+ 
+);
+
+-- Chave primaria: é uma informação unica que não permite repetições
+-- joão da silva. CPF
+
+-- drop table alunos;
+
+
+use exemplo;
+create table alunos(
+ Aluno_id int primary key,
+ aluno_nome varchar(40) not null,
+ aluno_email varchar(40) not null,
+ aluno_cpf int (11) zerofill,
+ aluno_rg varchar(15),
+ aluno_sexo enum("M", "F"),
+ aluno_status bit
+);
+
+drop table alunos;
+
+create table alunos(
+Aluno_id int primary key auto_increment,
+aluno_nome varchar(40) not null,
+ aluno_email varchar(40) not null,
+ aluno_renda decimal(8, 2),-- 999999.99
+ aluno_cpf int (11) zerofill,
+ aluno_rg varchar(15),
+ aluno_sexo enum("M", "F"),
+
+ aluno_status bit
+
+);
+
+show Databases;
+-- Alter table
+-- Alterar a tabela alunos incluindo uma nova coluna
+Alter table alunos
+add column  aluno_endereco varchar(60);
+
+
+-- Alterar tabela alunos e excluir uma coluna
+Alter table alunos
+drop column aluno_rg;
+
+-- Alterar a tabela modificando colunas
+Alter table alunos
+change column aluno_status aluno_situacao bit;
+-- Alterar a Tabela modificando uma Coluna
+Alter table alunos
+modify column aluno_email varchar (60);
+
+Alter table alunos
+rename to meus_alunos;
+
+show Databases;
+
+*/
+create database pedidos;
+
+use pedidos;
+create table if not exists vendedores(
+vend_id int primary key auto_increment,
+vend_nome varchar(40) not null,
+vend_cpf char(14)not null,
+vend_rg varchar(15),
+vend_dataNas date,
+vendedor_salario decimal(8, 2)
+)Engine=InnoDB;
+
+create table if not exists clientes(
+cliente_id int primary key auto_increment,
+cliente_nome varchar(40) not null, 
+cliente_cpf char(14),
+cliente_renda Decimal(10, 2),
+cliente_sexo enum("M","F"),
+cliente_ativo bit
+)Engine=InnoDB;
+
+create table if not exists Pedidos(
+pedido_num int primary key auto_increment,
+pedido_data datetime,
+pedido_vlr_total Decimal(10,2),
+pedido_status enum("P","E","C"),
+pedido_cliente_id int,
+foreign key (pedido_cliente_id) references clientes(cliente_id)
+on delete cascade on update cascade,
+pedido_vend_id int,
+foreign key (pedido_vend_id) references vendedores(vend_id)
+on delete cascade on update cascade
+
+-- vendedor cadastra varios pedidos
+)Engine=InnoDB;
+
+
+ 
+
+
+
+
+

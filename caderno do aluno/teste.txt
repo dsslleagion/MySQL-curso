@@ -1,0 +1,12 @@
+CREATE DATABASE meu_banco_dados_samueis;
+/*comentario de Bloco
+*/
+
+-- Comentario de linha
+-- Criando a tabela Clientes
+
+create table clientes(
+id int,
+nome varchar(30), -- var(variavel) char(caracter)
+renda decimal(8, 2)
+);  

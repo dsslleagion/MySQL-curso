@@ -1,0 +1,11 @@
+
+select 
+ f.nome_func,
+ f.salario_func,
+ p.*
+From funcionario F INNER JOIN pedidos P
+On f.cod_func = P.Cod.func;
+
+UPDATE Funcionario, Pedidos
+set Funcionario.salario_func = salario_func * 1.3
+where funcionario.cod_func = pedidos.cod_func;

@@ -1,0 +1,502 @@
+/*create database meu_banco_de_dados;
+
+use meu_banco_de_dados;
+create table cliente(
+id int,
+nome varchar(30), 
+renda decimal(8, 2),
+cpf varchar(14), -- 47023157816
+endereco_rua varchar(40),
+encereco_num varchar(6),
+endereco_compl varchar(20),
+endereco_bairro varchar(30),
+endereco_cidade varchar(30),
+endereco_uf char(2),
+cep char(8)
+);  
+
+-- Comando drop
+drop table clientes;
+drop database meu_banco_de_dados;
+
+
+create database exemplo;
+use exemplo;
+
+create table alunos(
+ aluno_id int,
+ aluno_nome varchar(40) not null,
+ aluno_email varchar(40) not null,
+ aluno_cpf int (11) zerofill,
+ aluno_rg varchar(15),
+ aluno_sexo enum("M", "F"),
+ aluno_status bit
+ 
+);
+
+-- Chave primaria: é uma informação unica que não permite repetições
+-- joão da silva. CPF
+
+-- drop table alunos;
+
+
+use exemplo;
+create table alunos(
+ Aluno_id int primary key,
+ aluno_nome varchar(40) not null,
+ aluno_email varchar(40) not null,
+ aluno_cpf int (11) zerofill,
+ aluno_rg varchar(15),
+ aluno_sexo enum("M", "F"),
+ aluno_status bit
+);
+
+drop table alunos;
+
+create table alunos(
+Aluno_id int primary key auto_increment,
+aluno_nome varchar(40) not null,
+ aluno_email varchar(40) not null,
+ aluno_renda decimal(8, 2),-- 999999.99
+ aluno_cpf int (11) zerofill,
+ aluno_rg varchar(15),
+ aluno_sexo enum("M", "F"),
+
+ aluno_status bit
+
+);
+
+show Databases;
+-- Alter table
+-- Alterar a tabela alunos incluindo uma nova coluna
+Alter table alunos
+add column  aluno_endereco varchar(60);
+
+
+-- Alterar tabela alunos e excluir uma coluna
+Alter table alunos
+drop column aluno_rg;
+
+-- Alterar a tabela modificando colunas
+Alter table alunos
+change column aluno_status aluno_situacao bit;
+-- Alterar a Tabela modificando uma Coluna
+Alter table alunos
+modify column aluno_email varchar (60);
+
+Alter table alunos
+rename to meus_alunos;
+
+show Databases;
+
+
+create database pedidos;
+
+use pedidos;
+create table if not exists vendedores(
+vend_id int primary key auto_increment,
+vend_nome varchar(40) not null,
+vend_cpf char(14)not null,
+vend_rg varchar(15),
+vend_dataNas date,
+vendedor_salario decimal(8, 2)
+)Engine=InnoDB;
+
+create table if not exists clientes(
+cliente_id int primary key auto_increment,
+cliente_nome varchar(40) not null, 
+cliente_cpf char(14),
+cliente_renda Decimal(10, 2),
+cliente_sexo enum("M","F"),
+cliente_ativo bit
+)Engine=InnoDB;
+
+create table if not exists Pedidos(
+pedido_num int primary key auto_increment,
+pedido_data datetime,
+pedido_vlr_total Decimal(10,2),
+pedido_status enum("P","E","C"),
+pedido_cliente_id int,
+foreign key (pedido_cliente_id) references clientes(cliente_id)
+on delete cascade on update cascade,
+pedido_vend_id int,
+foreign key (pedido_vend_id) references vendedores(vend_id)
+on delete cascade on update cascade
+
+-- vendedor cadastra varios pedidos
+)Engine=InnoDB;
+
+
+-- inserção de dados
+-- insert declarativo
+insert into clientes(cliente_nome, cliente_cpf,cliente_renda,cliente_sexo, cliente_ativo)
+values("Dionisio", "47023155512", "5000.00","M",0);
+
+
+-- insert varias linhas
+insert into clientes(cliente_nome, cliente_cpf,cliente_renda,cliente_sexo, cliente_ativo)
+values("Daniela", "47022255512", "5020.00","F",1),("Antonio", "47222255512", "5120.00","M",1),
+("Jack", "47022255511", "5123.00","M",1),("Jani", "47022244512", "520.00","F",1),("Sua mae", "47022255512", "50.00","F",1)
+
+
+-- comando select
+
+select * from clientes
+where cliente_sexo ='M';
+
+-- devolve valores de colunas desejadas
+select cliente_nome,cliente_sexo, cliente_ativo from clientes
+where cliente_sexo = "M"
+
+
+-- fazer busca de colunas e renomear as colunas no relatorio
+select
+   cliente_nome as "nome do cliente", 
+   cliente_sexo as "genero", 
+   cliente_ativo as "Online"
+from clientes
+where cliente_sexo = "M";
+
+-- fazer relatorio comparando valores maiores e menores
+select * from clientes 
+where cliente_renda > 5000.00;
+
+
+-- todos os clientes menos os homens
+Select * from clientes
+where cliente_sexo < "M";
+
+-- fazer triagem por data
+select * from clientes
+where cliente_nome <= "2007-01-01";
+
+-- triagem por idade
+select * from clientes
+where idade_cli <= '18';
+
+
+-- tabela verdade do AND
+-- V V = V 
+-- V F = F 
+-- F V = F
+-- F F = F 
+
+-- AND é V V = V
+
+Select * From clientes
+where cliente_sexo = "F" AND cliente_ativo="1" AND cliente_renda >= 5000.00;
+
+-- Tabela verdade do OR
+-- v v = v 
+-- v f = V
+-- f v = v
+-- f f = f 
+
+Select * From clientes
+where cliente_sexo = "M" or cliente_renda >= 5000.00;
+
+
+-- operador like
+-- select * from clientes
+-- where cliente_nome = "Dionisio";  
+
+select * from clientes
+where cliente_nome like "Dionisio";
+
+-- começam com a letra "a" e "%"
+select * from clientes
+where cliente_nome like "D%";
+
+-- caractere coringa que terminam com a letra "a" o uso do ´%" é no começo
+select * from clientes
+where cliente_nome like "%a";
+
+-- caractere coringa que contem com a letra "a" o uso do ´%" é no começo e no fim
+select * from clientes
+where cliente_nome like "%a%";
+
+-- caractere coringa que não contem com a letra "a" o uso do ´%" é no começo e no fim
+select * from clientes
+where cliente_nome not like "%a%";
+
+-- retornar os clientes que ganham entre 4000 e 5000
+select * from clientes
+where cliente_renda >= 4000 and cliente_renda <= 5000; 
+
+
+select * from clientes
+where cliente_renda between 4000 and 5000;
+
+
+select * from clientes
+where cliente_renda not between 4000 and 5000;
+
+-- retornar os clientes da região sudeste
+select * from clientes
+where cliente_estado like "SP" or cliente_estado like "rj";
+
+select * from Cliente 
+where cliente_estado in ("SP","RJ");
+
+
+-- funções de agregação
+-- count = contagem de registros 
+select count(*) from clientes;
+
+
+-- avg media 
+select avg(cliente_renda) from clientes;
+
+
+-- max = maximo
+select max(cliente_renda)  from clientes;
+
+
+-- min = minimo
+select min(cliente_renda)  from clientes;
+
+-- sum = soma
+select sum(cliente_renda)  from clientes;
+
+
+-- separador de milhares
+
+select format(avg(cliente_renda),2) from clientes;
+
+
+
+-- substring = parte de uma cadeia de caracteres
+select substring(cliente_nome, 3 ,6) from clientes;
+
+-- função lenth = contagem de caracteres de uma determinada string ou cadeia de caracteres
+select length(cliente_nome) from clientes;
+
+
+-- group by = usando para fazer agrupamentos e é comum utilizar com funções de agregação
+ select count(*) from clientes
+ Group by cliente_sexo;
+
+
+create database  Bibloteca;
+
+use bibloteca;
+
+create table bibloteca(
+BIBLIO_ID INT PRIMARY KEY AUTO_INCREMENT,
+BIBLIO_CNPJ VARCHAR(18) UNIQUE,
+BIBLIO_NOME VARCHAR(40),
+BIBLIO_END_RUA VARCHAR(40),
+BIBLIO_END_NRO VARCHAR(6),
+BIBLIO_END_COMPL VARCHAR(30),
+BIBLIO_END_BAIRRO VARCHAR(30),
+BIBLIO_END_CIDADE VARCHAR(30),
+BIBLIO_END_UF VARCHAR(2),
+BIBLIO_END_CEP VARCHAR(9)
+)ENGINE=InnoDB;
+*/
+
+/*
+CREATE TABLE livros(
+LIVRO_ID INT PRIMARY KEY AUTO_INCREMENT,
+LIVRO_TITULO VARCHAR(40),
+LIVRO_CATEGORIA VARCHAR(40),
+LIVRO_EDITORA VARCHAR(40),
+LIVRO_BIBLIO_ID INT,
+foreign key(LIVRO_BIBLIO_ID) REFERENCES BIBLOTECA(BIBLIO_ID)
+ON DELETE cascade ON UPDATE CASCADE
+)ENGINE=InnoDB;
+
+
+CREATE TABLE usuarios(
+USU_ID INT PRIMARY KEY AUTO_INCREMENT,
+USU_NOME VARCHAR(40),
+USU_RG VARCHAR(15),
+USU_CPF VARCHAR(14)
+)ENGINE=InnoDB;
+
+CREATE TABLE fones(
+FONE_ID INT PRIMARY KEY AUTO_INCREMENT,
+FONE_NUM VARCHAR(15),
+FONE_TIPO VARCHAR(15),
+FONE_USU_ID INT,
+foreign key(FONE_USU_ID) REFERENCES USUARIOS(USU_ID)
+ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB;
+
+
+
+CREATE TABLE locacoes( 
+LOC_ID INT PRIMARY KEY auto_increment,
+LOC_DATA_RET DATE,
+LOC_DATA_DEV DATE,
+LOC_VLR_MULTA DECIMAL(6,2),
+LOC_USU_ID INT,
+FOREIGN KEY(LOC_USU_ID) REFERENCES USUARIOS(USU_ID)
+ON DELETE CASCADE ON UPDATE CASCADE,
+LOC_LIVRO_ID INT,
+FOREIGN KEY(LOC_LIVRO_ID) REFERENCES LIVROS(LIVRO_ID)
+ON DELETE cascade ON UPDATE CASCADE
+)ENGINE=InnoDB;
+
+
+
+
+insert into bibloteca(BIBLIO_CNPJ, BIBLIO_NOME, BIBLIO_END_RUA, BIBLIO_END_NRO, BIBLIO_END_COMPL, BIBLIO_END_BAIRRO,
+BIBLIO_END_CIDADE, BIBLIO_END_UF, BIBLO_END_CEP )
+values("12.456.456/0001-75", "sede-sto ANDRÉ", "av.ramiro","110","anexo I", "centro","santo André","SP","00050-000");
+
+
+insert into USUARIOS(USU_NOME, USU_RG, USU_CPF)
+VALUES("FELIPPE SOUZA","10.682.221-3","456.789.653-99"),
+("FELIPE SOUZA","45.865.221-2", "456.434.223-99"),
+("GILBERTO SILVA","22.222.222-2","222.222.222-22"),
+("PAULA FERNANDES","33.333.333-3","333.333.333-33"),
+("HERNANDES OLIVEIRA","44.444.444-4","444.444.444-44"),
+("ALBERTO ANTUNES","55.555.555-5","555.555.555-55"),
+("JOSE SILVEIRA","66.666.666-6","666.666.666-66"),
+("ANTONIA MARQUES","77.777.777-7","777.777.777-77"),
+("SANORA PEREIRA","88.888.888-8","888.888.888-88"),
+("REIGINALDO VIEIRA","99.999.999-9","999.999.999-99"),
+("ADALBERTO MARQUES","10.100.101-1","101.101.101-10"),
+("MARIA ANTONIETA","11.111.111-1","111.111.111-11"),
+("MARIANA SALTO","12.121.212-2","121.121.121.12"),
+("SILVANA DA SILVA","13.131.131-1","131.131.131.-13");
+
+INSERT INTO FONES(FONE_NUM, FONE_TIPO, FONE_USU_ID)
+VALUES("(11)8999-8970","CELULAR",2);
+
+
+SELECT 
+LOCACOES.*,
+USUARIOS.USU_NOME*
+
+FROM USUARIOS INNER JOIN LOCACOES
+ON USUARIOS.USU_I - LOCACOES.LOC-USU_ID;
+
+
+select
+
+from USUARIOS inner join LOCACOES 
+on USUARIOS.USU_ID = LOCACOES>LOC_USU_ID
+ON USUARIOS.USU_ID = LOCACOES.LOC.USU.ID
+
+SELECT 
+  LOCACOES.*,
+  USUARIOS.USU.NOME,
+  LOCACOES.LOC.ID,
+  LIVROS.LIVRO.TITULO
+FROM USUARIOS INNER JOIN LOCACOES
+ON USUARIOS.USU.ID = LOCACOES.LOC.USU.ID
+INNER JOIN LIVROS
+ON LOCACOES.LOC.LIVRO.ID = LIVROS.LIVRO.ID;
+
+x - y
+y - x
+
+
+SELECT * FROM cliente;
+
+------------------------------------------------------------------------------
+-- OUTER JOINS
+-- LEFT
+-- 1. USUARIOS COM OU SEM TELEFONE
+
+SELECT
+U.USU_ID
+U.USU_NOME,
+F.FONE_NUM,
+F.FONE_TIPO
+ -- USUARIOS AS U 
+FROM USUARIOS U LEFT JOIN FONNES 
+ON U.USU_ID = F.FINE_USU_ID;
+
+-- RIGHT
+SELECT
+ U.USU_ID,
+ U.USU_NOME,
+ F.FONE_NUM,
+ F.FONE_TIPO
+ FROM FONES F RIGHT JOIN USUARIOS U 
+ ON F.FONES_USU_ID = U.USU_ID
+ 
+ --CROSS
+ SELECT 
+  U.*,
+  D.*
+ FROM USUARIO U CROSS JOIN FONES F;
+
+-- 2 . LIVROS SEM LOCAÇÃO
+
+-- use bibloteca;
+ create table multas(
+multa_id int primary key auto_increment,
+ multa_valor decimal(10, 2),
+ multa_data datetime default now(),
+ multa_usu_id int,
+ foreign key(multa_usu_id) references usuarios(usu_id)
+ on delete cascade on update cascade
+);
+
+alter table usuarios 
+modify column usu_cpf varchar(14) unique;
+*/
+
+
+-- store procedures 
+/*
+
+
+*/
+use bibloteca;
+create table clientes(
+cliente_id int primary key auto_increment,
+cliente_nome varchar(40),
+cliente_sexo enum("M","F"),
+cliente_dtCad datetime default now()
+);
+insert into clientes(cliente_nome,cliente_sexo,cliente_dtCad)
+values("juliana", "F",default),
+("mariana","F","2015/05/01");
+
+select * from clientes;
+
+delimiter $$
+Create Procedure InsereCliente(
+in _cliente_nome varchar(40),
+in _cliente_sexo enum("M","F"),
+in _cliente_dtCad datetime
+)
+Begin
+insert into clientes(cliente_nome, cliente_sexo, cliente_dtCad)
+values (_cliente_nome,_cliente_sexo,_cliente_dtCad);
+end $$
+
+---------------------
+call InsereCliente("tatiana", "M", "2016-03-03");
+select * from clientes;
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+

@@ -1,0 +1,57 @@
+not null = tornar cadastro obrigatorio
+null = caso não coloque nada ele permite a inclusão do registro
+primary key = chave primaria
+int = inteiro
+decimal = valores decimais
+varchar = variavel de caracteres usada em entradas de texto
+char = comprimento fixo
+CHAR é um tipo de dado de comprimento fixo e VARCHAR é de comprimento variável. Usamos CHAR quando os 
+tamanhos que desejamos armazenar na coluna de uma tabela são de tamanho 
+consistentes e semelhantes. Exemplo: Número de telefone, CEP, CPF, CGC, etc.
+O VARCHAR é usado para guardar strings de tamanho variável e usa alocação dinámica de memória. O CHAR 
+tem tamanho fixo e tem alocação estática de memória. Normalmente,
+se o teu conteúdo é de tamanho fixo (ou muito semelhante) então o uso de CHAR trás melhor performance.
+create database = cria o banco de dados
+create table = cria tabela
+use = seleciona o database que sera utilizado
+drop database = exclui banco
+drop table = exclui tabela
+show databases = exibe os bancos de dados cadastrados
+Alter table = alteração de tabelas
+drop column = excluir coluna
+add column = adicionar coluna
+Change column = modificar tabela ou coluna
+modify column = modificação de valor
+rename to = renomear com o alter table
+foreign key = chave estrangeira, semelhança com viajantes de outro pais só que os paises são tabelas viajando uma 
+na outra
+on delete cascade on update cascade = se um item for excluido ou alterado
+os demais items relacionado ao item excluido se excluira ou alterara
+tambem 
+references = chamada de outra tabela para ligação chave estrangeira
+insert into = inseri valores nas tabelas criadas no banco 
+Select + * = selecione a tabela mais todas as colunas 
+select = exibe a tabela selecionada no banco de dados
+where = criterio de filtro para buscar no select
+like = busca exatamente oq vc deseja
+% = utiliza junto ao like para buscar caracteres coringas 
+not like = busca que não possui um caracter especifico
+between = comparador de busca entre numeros x e y, buscar entre 4000 e 5000 exemplo
+not between = msm coisa mas na negação
+Basicamente o change serve para renomear uma coluna, alterar o tipo, valor padrão etc. 
+Enquanto o modify fica limitado apenas a alterações de tipo, valor padrão etc.
+count = utiliza para contagem de registros no banco
+avg = retorna a media dos registro ex.salarios
+max = o valor maximo já cadastrado no banco
+min = o valor minimo já cadastrado no banco
+sum = soma de todos os registros
+inner join = retorna dados relacionados em tabelas diferentes
+Comando LEFT =
+OUTER = 
+HELIAS =
+union all = união de 2 selects
+reverse enginer = cria diagrama do codigo do banco
+forward enginer = pega o diagrama e transforma em codigo
+
+ 
+
